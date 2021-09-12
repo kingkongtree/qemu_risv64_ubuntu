@@ -87,6 +87,9 @@
   mv riscv-binutils-gdb riscv-binutils
   sudo apt-get install python
   make linux
+#08 fix compile issue for gnu-toolcain
+  ./common/common-target-hooks-def.h:23:33: error: ‘default_compute_multilib’ was not declared in this scope
+  ./build-gcc-linux-stage1/gcc/common/common-target-hooks-def.h
 #08 set path for gnu-toolchain
   vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"
 #09 linux kernel prepare & build

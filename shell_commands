@@ -87,11 +87,25 @@
   mv riscv-binutils-gdb riscv-binutils
   sudo apt-get install python
   make linux
-#08 fix compile issue for gnu-toolcain
+#08 fix compile issue for gnu-toolchain
   ./common/common-target-hooks-def.h:23:33: error: ‘default_compute_multilib’ was not declared in this scope
   vi ./build-gcc-linux-stage1/gcc/common/common-target-hooks-def.h, replace 'default_compute_multilib' for ''
 #09 set path for gnu-toolchain
   vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"
+#10 replace sifive-riscv-gnu-toolchain for riscv official
+  mv riscv-gnu-toolchain riscv-gnu-toolchain_bak
+  git clone https://github.com/sifive/riscv-gnu-toolchain.git
+  cd riscv-gnu-toolchain
+  git clone https://github.com/sifive/riscv-gcc.git
+  git clone https://github.com/sifive/qemu.git
+  git clone https://github.com/sifive/riscv-dejagnu.git
+  git clone https://github.com/sifive/riscv-glibc.git
+  git clone https://github.com/sifive/riscv-binutils-gdb
+  rm riscv-binutils -rf
+  mv riscv-binutils-gdb riscv-binutils
+  cp riscv-binutils riscv-binutils-gdb
+  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchain
+  make linux
 #10 linux kernel prepare & build
   git clone https://github.com/kingkongtree/linux.git
   cd linux

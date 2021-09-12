@@ -85,6 +85,7 @@
   mv glibc riscv-glibc
   git clone https://github.com/kingkongtree/riscv-binutils-gdb.git
   mv riscv-binutils-gdb riscv-binutils
+  sudo apt-get install python
   make linux
 #08 set path for gnu-toolchain
   vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"

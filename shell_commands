@@ -106,13 +106,19 @@
   cp riscv-binutils riscv-binutils-gdb
   ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchains
   make linux
-#11 linux4.20 kernel prepare & build
-> git clone https://github.com/kingkongtree/riscv-linux.git
+#12 use released riscv-gnu-toolchain
+  wget https://github.com/sifive/riscv-gnu-toolchain/archive/refs/tags/v2018.12.0.tar.gz
+  tar -zxvf v2018.12.0.tar.gz
+  cd riscv-gnu-toolchain-2018.12.0/
+  ./configure
+#13 linux4.20 kernel prepare & build
+  git clone https://github.com/kingkongtree/riscv-linux.git
   cd linux
   make ARCH=riscv defconfig
   make ARCH=riscv menuconfig
-  make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
-#12 "standard file system" debootrap
+> make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
+>> ./scripts/gcc-version.sh: 26: riscv64-unknown-linux-gnu-gcc: not found // tbd
+#14 "standard file system" debootrap
   sudo apt-get install debootstrap qemu-user-static binfmt-support debian-ports-archive-keyring
   sudo debootstrap --arch=riscv64 unstable /home/linux/riscv64-chroot http://deb.debian.org/debian-ports
   
@@ -132,6 +138,6 @@
   sudo virt-make-fs --partition=gpt --type=ext4 --size=10G /home/linux/riscv64-chroot rootfs.img
   sudo chown ${USER} rootfs.img
   
-#13 start QEMU
+#15 start QEMU
   https://blog.csdn.net/mdx20072419/article/details/109224119
   https://packages.debian.org/bullseye/opensbi

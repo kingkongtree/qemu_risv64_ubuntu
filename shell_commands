@@ -89,10 +89,10 @@
   make linux
 #08 fix compile issue for gnu-toolcain
   ./common/common-target-hooks-def.h:23:33: error: ‘default_compute_multilib’ was not declared in this scope
-  ./build-gcc-linux-stage1/gcc/common/common-target-hooks-def.h
-#08 set path for gnu-toolchain
+  vi ./build-gcc-linux-stage1/gcc/common/common-target-hooks-def.h, replace 'default_compute_multilib' for ''
+#09 set path for gnu-toolchain
   vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"
-#09 linux kernel prepare & build
+#10 linux kernel prepare & build
   git clone https://github.com/kingkongtree/linux.git
   cd linux
   make ARCH=riscv defconfig

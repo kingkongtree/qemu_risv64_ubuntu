@@ -104,12 +104,34 @@
   rm riscv-binutils -rf
   mv riscv-binutils-gdb riscv-binutils
   cp riscv-binutils riscv-binutils-gdb
-  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchain
+  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchains
   make linux
-#10 linux kernel prepare & build
-  git clone https://github.com/kingkongtree/linux.git
+#11 linux4.20 kernel prepare & build
+> git clone https://github.com/kingkongtree/riscv-linux.git
   cd linux
   make ARCH=riscv defconfig
   make ARCH=riscv menuconfig
   make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
+#12 "standard file system" debootrap
+  sudo apt-get install debootstrap qemu-user-static binfmt-support debian-ports-archive-keyring
+  sudo debootstrap --arch=riscv64 unstable /home/linux/riscv64-chroot http://deb.debian.org/debian-ports
   
+  cat >>/etc/netowrk/interfaces <<EOF
+  auto lo
+  iface lo inet loopback
+  auto eth0
+  iface eth0 inet dhcp
+  EOF
+  
+  cat >>/etc/default/u-boot <<EOF
+  U_BOOT_PAPAMETERS="rw noquiet root=/dev/vda1"
+  U_BOOT_FDT_DIR="noexist"
+  EOF
+  
+  sudo apt-get install libguestfs-tools
+  sudo virt-make-fs --partition=gpt --type=ext4 --size=10G /home/linux/riscv64-chroot rootfs.img
+  sudo chown ${USER} rootfs.img
+  
+#13 start QEMU
+  https://blog.csdn.net/mdx20072419/article/details/109224119
+  https://packages.debian.org/bullseye/opensbi

@@ -76,3 +76,10 @@
   283  sudo dpkg-buildpackage -rfakeroot -b
   284  sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp
 #07 gnu-toolchain prepare & install
+  323  git clone https://github.com/kingkongtree/riscv-gnu-toolchain.git
+  325  sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex  gperf libtool patchutils bc zlib1g-dev
+  329  cd github_forks/riscv-gnu-toolchain/
+  339  git clone https://github.com/kingkongtree/riscv-gcc.git
+  351  git clone https://sourceware.org/git/glibc.git
+  330  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchain
+  

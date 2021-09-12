@@ -82,4 +82,16 @@
   339  git clone https://github.com/kingkongtree/riscv-gcc.git
   351  git clone https://sourceware.org/git/glibc.git
   330  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchain
+  mv glibc riscv-glibc
+  git clone https://github.com/kingkongtree/riscv-binutils-gdb.git
+  mv riscv-binutils-gdb riscv-binutils
+  make linux
+#08 set path for gnu-toolchain
+  vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"
+#09 linux kernel prepare & build
+  git clone https://github.com/kingkongtree/linux.git
+  cd linux
+  make ARCH=riscv defconfig
+  make ARCH=riscv menuconfig
+  make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
   

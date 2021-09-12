@@ -1,0 +1,78 @@
+#01 sources.list
+   34  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+   35  sudo sed -i 's/security.ubuntu/mirrors.aliyun/g' /etc/apt/sources.list
+   36  sudo sed -i 's/archive.ubuntu/mirrors.aliyun/g' /etc/apt/sources.list
+#02 ppa & mirrors
+   58  sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+   59  sudo apt update
+   60  sudo sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+   61  sudo apt update -y
+   62  sudo apt upgrade -y
+#03 visual-studio-code prepare & install
+   76  mkdir code
+   77  cd code/
+   78  mkdir github_forks
+   79  cd github_forks/
+   80  sudo apt-get install gcc
+   81  sudo apt-get install libc6-dev
+   82  sudo apt-get install pkg-config
+   83  sudo apt-get install bridge-utils
+   84  sudo apt-get install uml-utilities
+   85  sudo apt-get install zlib1g-dev
+   86  sudo apt-get install libglib2.0-dev
+   87  sudo apt-get install autoconf
+   88  sudo apt-get install automake
+   89  sudo apt-get install libtool
+   90  sudo apt-get install libsdl1.2-dev
+   91  sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+   92  sudo apt-get update
+   93  sudo apt-get install ubuntu-make
+   94  umake ide visual-studio-code
+#04 qemu prepare & install
+  110  sudo apt-get install make
+  114  sudo apt-get install ninja-build
+  117  sudo apt-get install g++
+  295  sudo apt-get install cgcc
+  296  sudo apt-get install appleframeworks
+  297  sudo apt-get install pixman-1
+  298  sudo apt-get install pixman
+  299  sudo apt-get install pkg-config
+  300  sudo apt-get install libpixman-1-0
+  305  sudo apt-get install libmount-dev
+  97   git clone https://git.qemu.org/git/qemu.git
+  115  ./configure --target-list=riscv64-linux-user,riscv64-softmmu --prefix=/home/lazyoung/code/riscv64_qemu
+  309  make; make install
+#05 gnutls rectify for qemu configure issue fix
+  126  sudo apt-get install gnutls-bin
+  127  git config --global http.postBuffer 1048576000
+  128  git config --global http.sslVerify false
+  133  export GIT_SSL_NO_VERIFY=1
+  135  sudo apt-get install build-essential fakeroot dpkg-dev
+  183  sudo apt-get install libcurl4-openssl-dev
+  200  sudo apt-get install build-essential libncurses5-dev bison flex texinfo zlib1g-dev gettext libssl-dev autoconf
+  176  sudo apt install net-tools
+  180  ifconfig eth0 mtu 14000
+  136  cd ..
+  137  mkdir git-rectify
+  138  cd git-rectify/
+  139  apt-get source git
+  181  cd git-2.25.1/
+  182  sudo dpkg-buildpackage -rfakeroot -b
+  183  sudo apt-get install libcurl4-openssl-dev
+  184  sudo dpkg-buildpackage -rfakeroot -b
+  289  sudo dpkg -i git_2.25.1-1ubuntu3.1_amd64.deb
+#06 buildroot rectify for gnutls rectify issue
+  205  cd ..
+  206  mkdir buildroot-rectify
+  207  cd buildroot-rectify/
+  209  wget https://buildroot.org/downloads/buildroot-2021.08.tar.gz
+  210  ls
+  212  tar -zxvf buildroot-2021.08.tar.gz
+  214  cd buildroot-2021.08/
+  215  make menuconfig
+  216  make
+  268  cd buildroot-rectify/buildroot-2021.08/output
+  278  cp -f /usr/bin/fakeroot-tcp fakeroot
+  283  sudo dpkg-buildpackage -rfakeroot -b
+  284  sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp
+#07 gnu-toolchain prepare & install

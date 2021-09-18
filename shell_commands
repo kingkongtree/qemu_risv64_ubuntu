@@ -76,41 +76,11 @@
   283  sudo dpkg-buildpackage -rfakeroot -b
   284  sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp
 #07 gnu-toolchain prepare & install
-  323  git clone https://github.com/kingkongtree/riscv-gnu-toolchain.git
-  325  sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex  gperf libtool patchutils bc zlib1g-dev
-  329  cd github_forks/riscv-gnu-toolchain/
-  339  git clone https://github.com/kingkongtree/riscv-gcc.git
-  351  git clone https://sourceware.org/git/glibc.git
-  330  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchain
-  mv glibc riscv-glibc
-  git clone https://github.com/kingkongtree/riscv-binutils-gdb.git
-  mv riscv-binutils-gdb riscv-binutils
-  sudo apt-get install python
-  make linux
-#08 fix compile issue for gnu-toolchain
-  ./common/common-target-hooks-def.h:23:33: error: ‘default_compute_multilib’ was not declared in this scope
-  vi ./build-gcc-linux-stage1/gcc/common/common-target-hooks-def.h, replace 'default_compute_multilib' for ''
-#09 set path for gnu-toolchain
-  vi ~/.bashrc, add "export PATH=/home/lazyoung/code/riscv64_gnu_toolchain/bin:$PATH"
-#10 replace sifive-riscv-gnu-toolchain for riscv official
-  mv riscv-gnu-toolchain riscv-gnu-toolchain_bak
-  git clone https://github.com/sifive/riscv-gnu-toolchain.git
-  cd riscv-gnu-toolchain
-  git clone https://github.com/sifive/riscv-gcc.git
-  git clone https://github.com/sifive/qemu.git
-  git clone https://github.com/sifive/riscv-dejagnu.git
-  git clone https://github.com/sifive/riscv-glibc.git
-  git clone https://github.com/sifive/riscv-binutils-gdb
-  rm riscv-binutils -rf
-  mv riscv-binutils-gdb riscv-binutils
-  cp riscv-binutils riscv-binutils-gdb
-  ./configure  --prefix=/home/lazyoung/code/riscv64_gnu_toolchains
-  make linux
-#12 use released riscv-gnu-toolchain
-  wget https://github.com/sifive/riscv-gnu-toolchain/archive/refs/tags/v2018.12.0.tar.gz
-  tar -zxvf v2018.12.0.tar.gz
-  cd riscv-gnu-toolchain-2018.12.0/
-  ./configure
+  git clone ---recursive https://gitee.com/mirrors/riscv-gnu-toolchain.git
+  sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
+  ./configure --prefix="/home/lazyoung/code/riscv64_gnu"
+  make newlib -j8
+  make linux -j8
 #13 linux4.20 kernel prepare & build
   git clone https://github.com/kingkongtree/riscv-linux.git
   cd linux
@@ -141,3 +111,5 @@
 #15 start QEMU
   https://blog.csdn.net/mdx20072419/article/details/109224119
   https://packages.debian.org/bullseye/opensbi
+  https://zhuanlan.zhihu.com/p/364638851
+  https://gitee.com/mirrors/riscv-gnu-toolchain

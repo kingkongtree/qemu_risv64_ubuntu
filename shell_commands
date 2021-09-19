@@ -81,14 +81,12 @@
   ./configure --prefix="/home/lazyoung/code/riscv64_gnu"
   cp riscv-binutils-gdb riscv-gdb -r
   make newlib -j8
-  make linux -j8
-  cp /home/lazyoung/code/riscv64_gnu/bin/riscv64-unknown-elf-gcc-10.2.0 /home/lazyoung/code/riscv64_gnu/bin/riscv64-unknown-linux-gnu-gcc
-#8 linux4.20 kernel prepare & build
-  git clone https://github.com/kingkongtree/riscv-linux.git
+#08 linux4.20 kernel prepare & build
+  git clone https://gitee.com/mirrors/linux.git
   cd linux
   make ARCH=riscv defconfig
   make ARCH=riscv menuconfig
-> make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
+> make CROSS_COMPILE=riscv64-unknown-elf-gnu- ARCH=riscv
 >> ./scripts/gcc-version.sh: 26: riscv64-unknown-linux-gnu-gcc: not found // tbd
 #9 "standard file system" debootrap
   sudo apt-get install debootstrap qemu-user-static binfmt-support debian-ports-archive-keyring

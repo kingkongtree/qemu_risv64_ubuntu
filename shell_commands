@@ -82,14 +82,14 @@
   cp riscv-binutils-gdb riscv-gdb -r
   make newlib -j8
   make linux -j8
-#13 linux4.20 kernel prepare & build
+#8 linux4.20 kernel prepare & build
   git clone https://github.com/kingkongtree/riscv-linux.git
   cd linux
   make ARCH=riscv defconfig
   make ARCH=riscv menuconfig
 > make CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv
 >> ./scripts/gcc-version.sh: 26: riscv64-unknown-linux-gnu-gcc: not found // tbd
-#14 "standard file system" debootrap
+#9 "standard file system" debootrap
   sudo apt-get install debootstrap qemu-user-static binfmt-support debian-ports-archive-keyring
   sudo debootstrap --arch=riscv64 unstable /home/linux/riscv64-chroot http://deb.debian.org/debian-ports
   
@@ -109,7 +109,7 @@
   sudo virt-make-fs --partition=gpt --type=ext4 --size=10G /home/linux/riscv64-chroot rootfs.img
   sudo chown ${USER} rootfs.img
   
-#15 start QEMU
+#10 start QEMU
   https://blog.csdn.net/mdx20072419/article/details/109224119
   https://packages.debian.org/bullseye/opensbi
   https://zhuanlan.zhihu.com/p/364638851

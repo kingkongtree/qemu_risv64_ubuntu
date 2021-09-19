@@ -79,6 +79,7 @@
   git clone ---recursive https://gitee.com/mirrors/riscv-gnu-toolchain.git
   sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
   ./configure --prefix="/home/lazyoung/code/riscv64_gnu"
+  cp riscv-binutils-gdb riscv-gdb -r
   make newlib -j8
   make linux -j8
 #13 linux4.20 kernel prepare & build

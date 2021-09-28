@@ -75,7 +75,7 @@ $ mkfs.ext4 rootfs.img
 $ mkdir rootfs
 $ sudo mount -o loop rootfs.img  rootfs
 $ cd rootfs
-$ sudo cp -r ../busyboxsource/_install/* .
+$ sudo cp -r ../busybox/_install/* .
 $ sudo mkdir proc sys dev etc etc/init.d
 $ cd etc/init.d/
 $ sudo touch rcS
@@ -86,7 +86,7 @@ $ sudo vi rcS
   mount -t sysfs none /sys
   /sbin/mdev -s
 $ sudo chmod +x rcS
-$ cd ..
+$ cd ../../../
 $ sudo umount rootfs
 $ ll | grep rootfs
   >

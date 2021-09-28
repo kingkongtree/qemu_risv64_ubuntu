@@ -1,5 +1,5 @@
 -----------#0 prepare---------------------------------------------------------------
-$ sudo apt install automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev git pkg-config libpixman-1-dev libglib2.0-dev ninja-build libncurses5-dev autoconf libncursesw5-dev
+$ sudo apt install automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev pkg-config libpixman-1-dev libglib2.0-dev ninja-build libncurses5-dev autoconf libncursesw5-dev
 $ mkdir riscv64-linux
 $ cd riscv64-linux
 -----------#1 install riscv-gnu-toolchain-------------------------------------------

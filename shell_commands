@@ -2,6 +2,9 @@
 $ sudo apt install automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev pkg-config libpixman-1-dev libglib2.0-dev ninja-build libncurses5-dev autoconf libncursesw5-dev
 $ mkdir riscv64-linux
 $ cd riscv64-linux
+$ find . -name "*" | xargs dos2unix
+$ find . -name "configure" | xargs dos2unix -f
+$ chmod -R +x *
 -----------#1 install riscv-gnu-toolchain-------------------------------------------
 $ git clone git://github.com/riscv/riscv-gnu-toolchain
 $ cd riscv-gnu-toolchain
@@ -42,6 +45,10 @@ $ qemu-system-riscv64 --version
 $ cd ..
 $ git clone git://github.com/torvalds/linux
 $ cd linux/
+## rename aux.c/aux.h in windows and cp to linux
+$ cp rename_i2c_aux.c drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+$ cp rename_i2c_aux.h drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.h
+$ cp rename_arc_aux.h include/soc/arc/aux.h
 $ git checkout v5.9
 $ make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- defconfig
 $ make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- -j $(nproc)
